@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/xlsx-to-sqlite-converter.iml" filepath="$PROJECT_DIR$/.idea/modules/xlsx-to-sqlite-converter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/xlsx-to-sqlite-converter_main.iml" filepath="$PROJECT_DIR$/.idea/modules/xlsx-to-sqlite-converter_main.iml" group="xlsx-to-sqlite-converter" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/xlsx-to-sqlite-converter_test.iml" filepath="$PROJECT_DIR$/.idea/modules/xlsx-to-sqlite-converter_test.iml" group="xlsx-to-sqlite-converter" />
+    </modules>
+  </component>
+</project>
