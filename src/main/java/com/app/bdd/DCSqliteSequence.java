@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DCSqliteSequence extends DatabaseConnector {
 
     public SqlSequenceElement getSqlSequenceElementByName( String name){
-        SqlSequenceElement resultat = null;
+        SqlSequenceElement resultat;
 
         //language=SQLite
         String requeteSql = "SELECT * FROM sqlite_sequence WHERE name = '"+ name +"'";
@@ -27,14 +27,23 @@ public class DCSqliteSequence extends DatabaseConnector {
 
     }
 
+    public void updateSqlSequenceElement(SqlSequenceElement oldSqlSequenceElement, SqlSequenceElement newSqlSequenceElement){
+        //language=SQLite
+        String requeteSql = "UPDATE sqlite_sequence SET seq = "+
+                newSqlSequenceElement.getSeq()+" WHERE name = '"+
+                oldSqlSequenceElement.getName()+"' ";
+
+        excuteVoidQuery( requeteSql );
+    }
+
     private ArrayList<SqlSequenceElement> getListOfSqlSequenceElementFromResultSet(ResultSet resultSet) {
-        ArrayList<SqlSequenceElement> resultat = new ArrayList<SqlSequenceElement>();
+        ArrayList<SqlSequenceElement> resultat = new ArrayList<>();
 
         try {
 
             while (resultSet.next()) {
                 String name = resultSet.getString( "name" );
-                String seq = resultSet.getString( "seq" );
+                int seq = resultSet.getInt( "seq" );
 
                 SqlSequenceElement sqlSequenceElement = new SqlSequenceElement(name, seq);
                 resultat.add( sqlSequenceElement );

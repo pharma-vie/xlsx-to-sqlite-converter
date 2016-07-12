@@ -10,6 +10,16 @@ import static org.junit.Assert.assertNotNull;
  * Created by Oussama on 12/07/2016.
  */
 public class DCSqliteSequenceTest {
+    @Test
+    public void updateSqlSequenceElement() throws Exception {
+        SqlSequenceElement oldsqlSequenceElement = dcSqliteSequence.getSqlSequenceElementByName("FamilleOuDci");
+        System.out.println( oldsqlSequenceElement );
+        SqlSequenceElement newSqlSequenceElement = new SqlSequenceElement( oldsqlSequenceElement );
+        int newSeq = oldsqlSequenceElement.getSeq() - 1;
+        newSqlSequenceElement.setSeq( newSeq );
+        dcSqliteSequence.updateSqlSequenceElement(oldsqlSequenceElement, newSqlSequenceElement);
+
+    }
 
     private DCSqliteSequence  dcSqliteSequence;
 

@@ -10,12 +10,12 @@ public class FamilleOuDci {
     private int id;
     private String nom;
     private String description;
-    private ArrayList<FamilleOuDci> listeDeFamillesEnRelationAvec;
+    private ArrayList<WhiteFamilleOuDci> listeDeFamillesEnRelationAvec;
 
     public FamilleOuDci(String nom, String description) {
         this.nom = nom;
         this.description = description;
-        this.listeDeFamillesEnRelationAvec = new ArrayList<FamilleOuDci>();
+        this.listeDeFamillesEnRelationAvec = new ArrayList<>();
     }
 
     public FamilleOuDci(int id, String nom, String description) {
@@ -50,11 +50,11 @@ public class FamilleOuDci {
         this.description = description;
     }
 
-    public ArrayList<FamilleOuDci> getListeDeFamillesEnRelationAvec() {
+    public ArrayList<WhiteFamilleOuDci> getListeDeFamillesEnRelationAvec() {
         return listeDeFamillesEnRelationAvec;
     }
 
-    public void setListeDeFamillesEnRelationAvec(ArrayList<FamilleOuDci> listeDeFamillesEnRelationAvec) {
+    public void setListeDeFamillesEnRelationAvec(ArrayList<WhiteFamilleOuDci> listeDeFamillesEnRelationAvec) {
         this.listeDeFamillesEnRelationAvec = listeDeFamillesEnRelationAvec;
     }
 

@@ -1,6 +1,10 @@
 package com.app.main;
 
+import com.app.bdd.DCFamilleOuDci;
+import com.app.bdd.DCInteractionMedicamenteuse;
+import com.app.bdd.DatabaseConnector;
 import com.app.model.FamilleOuDci;
+import com.app.model.InteractionMedicamenteuse;
 import com.app.model.WhiteFamilleOuDci;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -15,15 +19,68 @@ import java.util.Iterator;
  * Created by Oussama on 11/07/2016.
  */
 public class Main {
+
+    public static DatabaseConnector databaseConnector;
+    public static DCFamilleOuDci dcFamilleOuDci;
+    public static DCInteractionMedicamenteuse dcInteractionMedicamenteuse;
+
+
+
     public static void main(String[] args) {
         try {
-            readXLSXFile();
+
+            ArrayList<FamilleOuDci> familleOuDciArrayList = readXLSXFile();
+            System.out.println(familleOuDciArrayList.size());
+
+            databaseConnector = new DatabaseConnector();
+            dcFamilleOuDci = new DCFamilleOuDci();
+            dcInteractionMedicamenteuse = new DCInteractionMedicamenteuse();
+
+            insertListIntoDataBase( familleOuDciArrayList );
+
+
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void readXLSXFile() throws IOException {
+    private static void insertListIntoDataBase(ArrayList<FamilleOuDci> familleOuDciArrayList) {
+        for (FamilleOuDci grayFamilleOuDci : familleOuDciArrayList) {
+            //insérer dans la base
+            dcFamilleOuDci.addFamilleOuDci( grayFamilleOuDci );
+
+            //avoir son id attribué par sqlite
+            grayFamilleOuDci.setId( dcFamilleOuDci.getLastFamilleOuDci().getId() );
+
+            //pour chaque famille en relation avec lui (gray)
+            for (WhiteFamilleOuDci whiteFamilleOuDci : grayFamilleOuDci.getListeDeFamillesEnRelationAvec()) {
+
+                //ajouter la famille en relation
+                dcFamilleOuDci.addFamilleOuDci(whiteFamilleOuDci);
+
+                //avoir son id attribué par sqlite
+                whiteFamilleOuDci.setId( dcFamilleOuDci.getLastFamilleOuDci().getId() );
+
+                //creer un relation
+                InteractionMedicamenteuse interactionMedicamenteuse =
+                        new InteractionMedicamenteuse(
+                        grayFamilleOuDci.getId(),
+                        whiteFamilleOuDci.getId(),
+                        whiteFamilleOuDci.getLibelleDUneInteraction(),
+                        whiteFamilleOuDci.getNiveauContrainteEtDescrption());
+
+                System.out.println( interactionMedicamenteuse.toString() );
+                dcInteractionMedicamenteuse.addInteractionMedicamenteuse( interactionMedicamenteuse );
+
+
+            }
+        }
+    }
+
+    public static ArrayList<FamilleOuDci> readXLSXFile() throws IOException {
 
         ArrayList<FamilleOuDci> listeDeFamilleOuDci = new ArrayList<FamilleOuDci>();
 
@@ -55,6 +112,7 @@ public class Main {
                     //if we are in the cell that has a value (first cell in two cells)
                     if (grayCell % 2 == 1){
                         String cellStr = cell.getStringCellValue();
+                        cellStr = cellStr.replaceAll("'", "''");
                         System.out.println( cellStr );
 
                         if( cellStr.contains("\n")){
@@ -76,6 +134,8 @@ public class Main {
 
                 }else{                                          //- - - -  - - - - - -  - - - - - white
                     String cellStr = cell.getStringCellValue();
+                    cellStr = cellStr.replaceAll("'", "''");
+
                     if (cellStr.startsWith("+")){
                         cellStr = cellStr.substring( cellStr.indexOf("+")+2, cellStr.length());
                         lastWhiteFamilleOuDci = new WhiteFamilleOuDci(cellStr, "");
@@ -108,6 +168,8 @@ public class Main {
 
         //workbook.close();
         inputStream.close();
+
+        return listeDeFamilleOuDci;
     }
 
 

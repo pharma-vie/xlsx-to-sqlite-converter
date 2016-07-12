@@ -6,11 +6,16 @@ package com.app.model;
 public class SqlSequenceElement {
 
     private String name;
-    private String seq;
+    private int seq;
 
-    public SqlSequenceElement(String name, String seq) {
+    public SqlSequenceElement(String name, int seq) {
         this.name = name;
         this.seq = seq;
+    }
+
+    public SqlSequenceElement(SqlSequenceElement other) {
+        this.name = other.name;
+        this.seq = other.seq;
     }
 
     public String getName() {
@@ -21,11 +26,11 @@ public class SqlSequenceElement {
         this.name = name;
     }
 
-    public String getSeq() {
+    public int getSeq() {
         return seq;
     }
 
-    public void setSeq(String seq) {
+    public void setSeq(int seq) {
         this.seq = seq;
     }
 
