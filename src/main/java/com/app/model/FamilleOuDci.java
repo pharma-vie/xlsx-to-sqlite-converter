@@ -18,6 +18,14 @@ public class FamilleOuDci {
         this.listeDeFamillesEnRelationAvec = new ArrayList<FamilleOuDci>();
     }
 
+    public FamilleOuDci(int id, String nom, String description) {
+        this.id = id;
+        this.nom = nom;
+        this.description = description;
+    }
+
+
+
     public int getId() {
         return id;
     }
