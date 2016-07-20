@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+
 /**
  * Created by Oussama on 12/07/2016.
  */
@@ -37,12 +38,12 @@ public class DCFamilleOuDciTest {
         assertNotEquals(0, familleOuDciArrayList.size());
     }
 
-    private DCFamilleOuDci dcFamilleOuDci;
+    private DcFamilleOuDci dcFamilleOuDci;
 
     @Before
     public void setUp() throws Exception {
         DatabaseConnector databaseConnector = new DatabaseConnector();
-        dcFamilleOuDci = new DCFamilleOuDci();
+        dcFamilleOuDci = new DcFamilleOuDci();
 
     }
 

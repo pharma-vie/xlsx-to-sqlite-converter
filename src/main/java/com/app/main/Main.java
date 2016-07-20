@@ -1,6 +1,6 @@
 package com.app.main;
 
-import com.app.bdd.DCFamilleOuDci;
+import com.app.bdd.DcFamilleOuDci;
 import com.app.bdd.DCInteractionMedicamenteuse;
 import com.app.bdd.DatabaseConnector;
 import com.app.model.FamilleOuDci;
@@ -21,22 +21,23 @@ import java.util.Iterator;
 public class Main {
 
     public static DatabaseConnector databaseConnector;
-    public static DCFamilleOuDci dcFamilleOuDci;
+    public static DcFamilleOuDci dcFamilleOuDci;
     public static DCInteractionMedicamenteuse dcInteractionMedicamenteuse;
 
 
 
     public static void main(String[] args) {
         try {
+            File file = new File( ClassLoader.getSystemClassLoader().getResource("files/Interactions_medicamenteuses.xlsx").getPath() );
 
             ArrayList<FamilleOuDci> familleOuDciArrayList = readXLSXFile();
             System.out.println(familleOuDciArrayList.size());
 
             databaseConnector = new DatabaseConnector();
-            dcFamilleOuDci = new DCFamilleOuDci();
+            dcFamilleOuDci = new DcFamilleOuDci();
             dcInteractionMedicamenteuse = new DCInteractionMedicamenteuse();
 
-            insertListIntoDataBase( familleOuDciArrayList );
+          //  insertListIntoDataBase( familleOuDciArrayList );
 
 
 

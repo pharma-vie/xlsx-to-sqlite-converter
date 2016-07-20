@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by Oussama on 12/07/2016.
  */
-public class DCFamilleOuDci extends DatabaseConnector{
+public class DcFamilleOuDci extends DatabaseConnector{
 
 
     public void addFamilleOuDci(FamilleOuDci familleOuDci){
